@@ -1,1 +1,41 @@
-{"_default": {"1": {"ativo": "CYRE3", "quantidade": 100, "compra": 0.15, "venda": 0.25}, "2": {"ativo": "", "quantidade": 1, "compra": 0.01}, "3": {"ativo": "PETR3", "quantidade": 1, "compra": 0.01}}}
+{
+    "_default": {
+        "1": {
+            "ativo": "ABEV3",
+            "quantidade": 500,
+            "compra": 11.14
+        },
+        "2": {
+            "ativo": "BBDC4",
+            "quantidade": 500,
+            "compra": 11.78
+        },
+        "3": {
+            "ativo": "CSAN3",
+            "quantidade": 600,
+            "compra": 7.27
+        },
+        "4": {
+            "ativo": "CYRE3",
+            "quantidade": 100,
+            "compra": 21.79,
+            "venda": 21.0
+        },
+        "5": {
+            "ativo": "EQTL3",
+            "quantidade": 100,
+            "compra": 30.95,
+            "venda": 30.07
+        },
+        "6": {
+            "ativo": "HAPV3",
+            "quantidade": 2000,
+            "compra": 2.18
+        },
+        "7": {
+            "ativo": "HYPE3",
+            "quantidade": 200,
+            "compra": 19.37
+        }
+    }
+}

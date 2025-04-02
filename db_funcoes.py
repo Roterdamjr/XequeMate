@@ -4,6 +4,18 @@ from tinydb import TinyDB,Query
 db_acoes = TinyDB('acoes.json')
 db_opcoes  = TinyDB('opcoes.json')
 
+def apaga_banco():
+    db_acoes.truncate()
+    db_opcoes.truncate()
+
+def fn_buscar_venda_vazia():
+    tabela = db_acoes.table('_default')
+    query = Query()
+    resultados = db_acoes.search((query.has('venda')) | (query.venda == None))
+    return resultados
+
+#def busca_opcoes_nao_recompradas():    
+    
 def fn_validacao(tipo_ativo, ativo, tipo_ordem):
     query = Query()
     msg= ''
@@ -51,7 +63,7 @@ def fn_validacao(tipo_ativo, ativo, tipo_ordem):
 
     return {'valido': True,'mensagem': 'Registro lançado!'}
 
-def fn_inserir_ordem(tipo_ativo, ativo, tipo_ordem, quantidade, preco):
+def fn_inserir_ordem(tipo_ativo, ativo, tipo_ordem, quantidade, preco, strike=0):
 
     query = Query()
 
@@ -77,10 +89,11 @@ def fn_inserir_ordem(tipo_ativo, ativo, tipo_ordem, quantidade, preco):
         db_opcoes.insert({
             'ativo': ativo,
             'quantidade': quantidade,
-            'venda': preco
+            'venda': preco,
+            'strike' : strike
         })
 
-    return {'valido': False, 'mensagem': resultado_validacao['mensagem']}
+    return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
     
 
 

@@ -1,6 +1,6 @@
 import streamlit as st
 from tinydb import TinyDB
-from ordem import fn_inserir_ordem
+from db_funcoes import fn_inserir_ordem
 
 # Inicializa os bancos de dados TinyDB
 db_acoes = TinyDB('acoes.json')
@@ -15,6 +15,7 @@ with col2:
 
 col_ativo, col_quantidade, col_preco,col_strike  = st.columns(4)
 
+ativo = ''
 with col_ativo:
     # Lógica para exibir a caixa de texto ou listbox
     if tipo_ativo == "Ação" and tipo_ordem == "Comprar":
@@ -22,11 +23,11 @@ with col_ativo:
     elif tipo_ativo == "Ação" and tipo_ordem == "Vender":
         resultados = db_acoes.all()
         lista = [item['ativo'] for item in resultados]
-        selecionado = st.selectbox("Ativos", lista)
+        ativo = st.selectbox("Ativos", lista)
     elif tipo_ativo == "Opção" and tipo_ordem == "Comprar":
         resultados = db_opcoes.all()
         lista = [item['ativo'] for item in resultados]
-        selecionado = st.selectbox("Ativos", lista)
+        ativo = st.selectbox("Ativos", lista)
     else:
         ativo = st.text_input("Ativo")
 
@@ -37,7 +38,7 @@ with col_preco:
     preco = st.number_input("Preço", min_value=0.01, max_value=9999.99, step=0.01)
 
 with col_strike:
-    if tipo_ativo == "Opção":
+    if tipo_ativo == "Opção" and tipo_ordem == "Vender":
         strike = st.number_input("Strike", min_value=0.01, max_value=9999.99, step=0.01)
 
 
@@ -51,11 +52,14 @@ sigla_tipo_ordem = 'C' if tipo_ordem == "Comprar" else 'V'
 sigla_tipo_ativo = 'A' if tipo_ativo == "Ação" else 'O'
 
 if st.button(tipo_ordem,  help=None, on_click=None, disabled=False, key=None):
-    retorno = fn_inserir_ordem(sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco)
-    msg = sigla_tipo_ativo + "," + ativo  + "," + sigla_tipo_ordem + "," + str(quantidade) + "," + str(preco)
-    st.write(msg)
+    if tipo_ativo == "Opção" and tipo_ordem == "Vender":
+        retorno = fn_inserir_ordem(sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco, strike)
+    else:
+        retorno = fn_inserir_ordem(sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco)
+
+   #st.write( sigla_tipo_ativo + "," + ativo  + "," + sigla_tipo_ordem + "," + str(quantidade) + "," + str(preco))
     st.write( retorno['mensagem']) 
-    st.write('Registro lançado!')
+ 
 
 # Adiciona estilo CSS para alterar a cor do botão
 st.markdown(f"""
