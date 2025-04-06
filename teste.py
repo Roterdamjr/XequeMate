@@ -1,18 +1,16 @@
 
 
-
 from tinydb import TinyDB, Query
 
-def fn_buscar_venda_vazia_ou_ausente():
-    db_acoes = TinyDB('acoes.json')
-    tabela = db_acoes.table('_default')
-    query = Query()
-    consulta = (~query.has('venda')) | (query.venda == None)
-    print("Consulta:", consulta) # mostre a consulta que sera executada
-    print("tabela:", tabela.all()) # mostre todo o conteudo da tabela
-    resultados = tabela.search(consulta)
-    return resultados
+db_acoes = TinyDB('acoes.json')
+db_opcoes  = TinyDB('opcoes.json')
 
-ret = fn_buscar_venda_vazia_ou_ausente()
+def fn_buscar_venda_compras_vazia():
+    acoes = db_acoes.all()
+    opcoes = db_opcoes.all()
+    return [r for r in acoes if 'venda' not in r], [r for r in opcoes if 'compra' not in r]
 
-print(ret)
+
+acoes,opcoes = fn_buscar_venda_compras_vazia()
+lista = [item['ativo'] for item in opcoes]
+print(lista)

@@ -1,10 +1,8 @@
 import streamlit as st
-from tinydb import TinyDB
-from db_funcoes import fn_inserir_ordem
 
-# Inicializa os bancos de dados TinyDB
-db_acoes = TinyDB('acoes.json')
-db_opcoes = TinyDB('opcoes.json')
+from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
+
+todas_acoes, todas_opcoes = fn_buscar_todas()
 
 col1, col2 = st.columns(2)
 with col1:
@@ -16,16 +14,18 @@ with col2:
 col_ativo, col_quantidade, col_preco,col_strike  = st.columns(4)
 
 ativo = ''
+
+acoes_venda_vazia, opcoes_comra_vaiza = fn_buscar_venda_compras_vazia()
 with col_ativo:
     # Lógica para exibir a caixa de texto ou listbox
     if tipo_ativo == "Ação" and tipo_ordem == "Comprar":
         ativo = st.text_input("Ativo")
     elif tipo_ativo == "Ação" and tipo_ordem == "Vender":
-        resultados = db_acoes.all()
+        resultados = acoes_venda_vazia
         lista = [item['ativo'] for item in resultados]
         ativo = st.selectbox("Ativos", lista)
     elif tipo_ativo == "Opção" and tipo_ordem == "Comprar":
-        resultados = db_opcoes.all()
+        resultados = opcoes_comra_vaiza
         lista = [item['ativo'] for item in resultados]
         ativo = st.selectbox("Ativos", lista)
     else:
@@ -47,7 +47,7 @@ if tipo_ordem == "Comprar":
 else:
     button_color = "red"
 
-# Cria o botão com a cor definida
+# botão com a cor definida
 sigla_tipo_ordem = 'C' if tipo_ordem == "Comprar" else 'V'
 sigla_tipo_ativo = 'A' if tipo_ativo == "Ação" else 'O'
 
@@ -57,11 +57,27 @@ if st.button(tipo_ordem,  help=None, on_click=None, disabled=False, key=None):
     else:
         retorno = fn_inserir_ordem(sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco)
 
-   #st.write( sigla_tipo_ativo + "," + ativo  + "," + sigla_tipo_ordem + "," + str(quantidade) + "," + str(preco))
     st.write( retorno['mensagem']) 
  
+ ####################### grade ###################
 
-# Adiciona estilo CSS para alterar a cor do botão
+if todas_acoes:
+    import pandas as pd
+    df = pd.DataFrame(todas_acoes)
+    st.dataframe(df)
+else:
+    st.warning("Nenhuma ação registrada no momento.")
+
+if todas_opcoes:
+    import pandas as pd
+    df = pd.DataFrame(todas_opcoes)
+    st.dataframe(df)
+else:
+    st.warning("Nenhuma ação registrada no momento.")
+
+
+
+################  Adiciona estilo CSS para alterar a cor do botão
 st.markdown(f"""
     <style>
         div.stButton > button:first-child {{

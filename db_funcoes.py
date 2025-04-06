@@ -8,13 +8,14 @@ def apaga_banco():
     db_acoes.truncate()
     db_opcoes.truncate()
 
-def fn_buscar_venda_vazia():
-    tabela = db_acoes.table('_default')
-    query = Query()
-    resultados = db_acoes.search((query.has('venda')) | (query.venda == None))
-    return resultados
+def fn_buscar_venda_compras_vazia():
+    acoes = db_acoes.all()
+    opcoes = db_opcoes.all()
+    return [r for r in acoes if 'venda' not in r], [r for r in opcoes if 'compra' not in r]
 
-#def busca_opcoes_nao_recompradas():    
+def fn_buscar_todas():
+    return db_acoes.all(),db_opcoes.all()
+  
     
 def fn_validacao(tipo_ativo, ativo, tipo_ordem):
     query = Query()
