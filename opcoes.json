@@ -1,112 +1,140 @@
 {
     "_default": {
-      "1": {
-        "ativo": "ABEVD126",
-        "quantidade": 500,
-        "venda": 0.11,
-        "strike": 12.0,
-        "data": "01/04/2025"
-      },
-      "2": {
-        "ativo": "BBDCC126",
-        "quantidade": 500,
-        "venda": 0.15,
-        "strike": 12.32,
-        "compra": 0.15,
-        "data": "01/04/2025"
-      },
-      "3": {
-        "ativo": "BBDCD125",
-        "quantidade": 500,
-        "venda": 0.35,
-        "strike": 12.52,
-        "data": "01/04/2025"
-      },
-      "4": {
-        "ativo": "CSANC840",
-        "quantidade": 600,
-        "venda": 0.08,
-        "strike": 8.4,
-        "data": "01/04/2025"
-      },
-      "5": {
-        "ativo": "CSAND820",
-        "quantidade": 600,
-        "venda": 0.13,
-        "strike": 8.2,
-        "data": "01/04/2025"
-      },
-      "6": {
-        "ativo": "CYREC210",
-        "quantidade": 100,
-        "venda": 1.33,
-        "strike": 21.0,
-        "data": "01/04/2025"
-      },
-      "7": {
-        "ativo": "EQTLC301",
-        "quantidade": 100,
-        "venda": 1.5,
-        "strike": 30.07,
-        "data": "01/04/2025"
-      },
-      "8": {
-        "ativo": "HAPVC265",
-        "quantidade": 2000,
-        "venda": 0.02,
-        "strike": 2.65,
-        "data": "01/04/2025"
-      },
-      "9": {
-        "ativo": "HAPVD245",
-        "quantidade": 2000,
-        "venda": 0.06,
-        "strike": 2.45,
-        "data": "01/04/2025"
-      },
-      "10": {
-        "ativo": "HYPEC214",
-        "quantidade": 200,
-        "venda": 0.3,
-        "strike": 21.21,
-        "compra": 0.32,
-        "data": "01/04/2025"
-      },
-      "11": {
-        "ativo": "HYPED219",
-        "quantidade": 200,
-        "venda": 0.33,
-        "strike": 21.98,
-        "data": "01/04/2025"
-      },
-      "12": {
-        "ativo": "SLCEC174",
-        "quantidade": 300,
-        "venda": 0.94,
-        "strike": 17.42,
-        "data": "01/04/2025"
-      },
-      "13": {
-        "ativo": "EGIED385",
-        "quantidade": 100,
-        "venda": 0.9,
-        "strike": 38.5,
-        "data": "01/04/2025"
-      },
-      "14": {
-        "ativo": "SLCED182",
-        "quantidade": 200,
-        "venda": 0.64,
-        "strike": 13.25,
-        "data": "01/04/2025"
-      },
-      "15": {
-        "ativo": "YDUQD109",
-        "quantidade": 200,
-        "venda": 1.24,
-        "strike": 10.96,
-        "data": "01/04/2025"
-      }
+        "1": {
+            "data": "21/02/2025",
+            "ativo": "BBDCC126",
+            "quantidade": 500,
+            "venda": 0.15,
+            "strike": 12.32,
+            "compra": 0.15
+        },
+        "2": {
+            "data": "21/02/2025",
+            "ativo": "CSANC840",
+            "quantidade": 600,
+            "venda": 0.08,
+            "strike": 8.4
+        },
+        "3": {
+            "data": "25/02/2025",
+            "ativo": "ABEVD126",
+            "quantidade": 500,
+            "venda": 0.11,
+            "strike": 12.0
+        },
+        "4": {
+            "data": "25/02/2025",
+            "ativo": "CYREC210",
+            "quantidade": 100,
+            "venda": 1.33,
+            "strike": 21.0
+        },
+        "5": {
+            "data": "25/02/2025",
+            "ativo": "EQTLC301",
+            "quantidade": 100,
+            "venda": 1.5,
+            "strike": 30.07
+        },
+        "6": {
+            "data": "25/02/2025",
+            "ativo": "BBDCD125",
+            "quantidade": 500,
+            "venda": 0.35,
+            "strike": 12.52,
+            "compra": 0.56
+        },
+        "7": {
+            "data": "25/02/2025",
+            "ativo": "SLCEC174",
+            "quantidade": 300,
+            "venda": 0.94,
+            "strike": 17.42
+        },
+        "8": {
+            "data": "28/02/2025",
+            "ativo": "HAPVC265",
+            "quantidade": 2000,
+            "venda": 0.02,
+            "strike": 2.65
+        },
+        "9": {
+            "data": "25/03/2025",
+            "ativo": "CSAND820",
+            "quantidade": 600,
+            "venda": 0.13,
+            "strike": 8.2
+        },
+        "10": {
+            "data": "25/03/2025",
+            "ativo": "HAPVD245",
+            "quantidade": 2000,
+            "venda": 0.06,
+            "strike": 2.45
+        },
+        "11": {
+            "data": "25/03/2025",
+            "ativo": "SLCED182",
+            "quantidade": 200,
+            "venda": 0.64,
+            "strike": 13.25
+        },
+        "12": {
+            "data": "25/03/2025",
+            "ativo": "YDUQD109",
+            "quantidade": 200,
+            "venda": 1.24,
+            "strike": 10.96
+        },
+        "13": {
+            "data": "15/04/2025",
+            "ativo": "ALOSE206",
+            "quantidade": 200,
+            "venda": 0.35,
+            "strike": 20.38
+        },
+        "14": {
+            "data": "15/04/2025",
+            "ativo": "BBDCE128",
+            "quantidade": 500,
+            "venda": 0.65,
+            "strike": 12.58
+        },
+        "15": {
+            "data": "15/04/2025",
+            "ativo": "BRSRE107",
+            "quantidade": 300,
+            "venda": 0.37,
+            "strike": 10.56
+        },
+        "16": {
+            "data": "15/04/2025",
+            "ativo": "WEGEE462",
+            "quantidade": 100,
+            "venda": 1.57,
+            "strike": 45.85
+        },
+        "17": {
+            "data": "25/02/2025",
+            "ativo": "HYPEC214",
+            "quantidade": 200,
+            "venda": 0.3,
+            "strike": 21.21,
+            "compra": 0.32
+        },
+        "18": {
+            "data": "19/03/2025",
+            "ativo": "HYPED219",
+            "quantidade": 200,
+            "venda": 0.33,
+            "strike": 21.98
+        },
+        "19": {
+            "data": "25/03/2025",
+            "ativo": "EGIED385",
+            "quantidade": 100,
+            "venda": 0.9,
+            "strike": 38.5
+        }
     }
-  }
-  
+}

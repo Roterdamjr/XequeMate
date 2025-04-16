@@ -64,7 +64,7 @@ def fn_validacao(tipo_ativo, ativo, tipo_ordem):
 
     return {'valido': True,'mensagem': 'Registro lançado!'}
 
-def fn_inserir_ordem(tipo_ativo, ativo, tipo_ordem, quantidade, preco, strike=0):
+def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, strike=0):
 
     query = Query()
 
@@ -74,7 +74,9 @@ def fn_inserir_ordem(tipo_ativo, ativo, tipo_ordem, quantidade, preco, strike=0)
         return {'mensagem': resultado_validacao['mensagem']}
 
     if (tipo_ativo == 'A') and tipo_ordem == 'C':
+        print('inserindo')
         db_acoes.insert({
+            'data' : data,
             'ativo': ativo,
             'quantidade': quantidade,
             'compra': preco
@@ -88,6 +90,7 @@ def fn_inserir_ordem(tipo_ativo, ativo, tipo_ordem, quantidade, preco, strike=0)
 
     elif (tipo_ativo == 'O') and tipo_ordem == 'V':
         db_opcoes.insert({
+            'data' : data,
             'ativo': ativo,
             'quantidade': quantidade,
             'venda': preco,

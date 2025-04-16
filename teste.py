@@ -1,16 +1,11 @@
+import streamlit as st
+import datetime
 
+col1, col2 = st.columns(2)
 
-from tinydb import TinyDB, Query
-
-db_acoes = TinyDB('acoes.json')
-db_opcoes  = TinyDB('opcoes.json')
-
-def fn_buscar_venda_compras_vazia():
-    acoes = db_acoes.all()
-    opcoes = db_opcoes.all()
-    return [r for r in acoes if 'venda' not in r], [r for r in opcoes if 'compra' not in r]
-
-
-acoes,opcoes = fn_buscar_venda_compras_vazia()
-lista = [item['ativo'] for item in opcoes]
-print(lista)
+with col1:
+    data = st.date_input("Data", value=datetime.date.today())
+    
+with col2:
+    st.write("Data formatada:")
+    st.write(data.strftime("%d/%m/%Y"))

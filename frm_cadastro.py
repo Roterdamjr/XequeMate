@@ -1,6 +1,6 @@
 import streamlit as st
 from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
-
+import datetime
 
 def exibir_tela():
     todas_acoes, todas_opcoes = fn_buscar_todas()
@@ -12,7 +12,7 @@ def exibir_tela():
         tipo_ordem = st.radio("Tipo de Ordem", ("Comprar", "Vender"))
 
 
-    col_ativo, col_quantidade, col_preco,col_strike  = st.columns(4)
+    col_data, col_ativo, col_quantidade, col_preco,col_strike  = st.columns(5)
 
     ativo = ''
 
@@ -32,8 +32,14 @@ def exibir_tela():
         else:
             ativo = st.text_input("Ativo")
 
+    with col_data:
+        hoje = datetime.date.today()
+        hoje_formatada = hoje.strftime("%d/%m/%Y")
+        data = st.text_input("Data", value=hoje_formatada)
+
+
     with col_quantidade:
-        quantidade = st.number_input("Qtd.", min_value=1, max_value=9999, step=1)
+        quantidade = st.number_input("Qtd", min_value=1, max_value=9999, step=1)
 
     with col_preco:
         preco = st.number_input("Preço", min_value=0.01, max_value=9999.99, step=0.01)
@@ -54,29 +60,13 @@ def exibir_tela():
 
     if st.button(tipo_ordem,  help=None, on_click=None, disabled=False, key=None):
         if tipo_ativo == "Opção" and tipo_ordem == "Vender":
-            retorno = fn_inserir_ordem(sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco, strike)
+            retorno = fn_inserir_ordem(data, sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco, strike)
         else:
-            retorno = fn_inserir_ordem(sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco)
+            retorno = fn_inserir_ordem(data, sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco)
 
         st.write( retorno['mensagem']) 
-    
-    ####################### grade ###################
 
-    if todas_acoes:
-        import pandas as pd
-        df = pd.DataFrame(todas_acoes)
-        st.dataframe(df)
-    else:
-        st.warning("Nenhuma ação registrada no momento.")
-
-    if todas_opcoes:
-        import pandas as pd
-        df = pd.DataFrame(todas_opcoes)
-        st.dataframe(df)
-    else:
-        st.warning("Nenhuma ação registrada no momento.")
-
-
+    exibe_grade()
 
     ################  Adiciona estilo CSS para alterar a cor do botão
     st.markdown(f"""
@@ -87,3 +77,19 @@ def exibir_tela():
             }}
         </style>
     """, unsafe_allow_html=True)
+
+def exibe_grade():
+    acoes, opcoes = fn_buscar_venda_compras_vazia()
+    if acoes:
+        import pandas as pd
+        df = pd.DataFrame(acoes)
+        st.dataframe(df)
+    else:
+        st.warning("Nenhuma ação registrada no momento.")
+
+    if opcoes:
+        import pandas as pd
+        df = pd.DataFrame(opcoes)
+        st.dataframe(df)
+    else:
+        st.warning("Nenhuma ação registrada no momento.")

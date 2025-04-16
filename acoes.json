@@ -1,74 +1,91 @@
 {
     "_default": {
-      "1": {
-        "ativo": "ABEV3",
-        "quantidade": 500,
-        "compra": 11.14,
-        "data": "01/04/2025"
-      },
-      "2": {
-        "ativo": "BBDC4",
-        "quantidade": 500,
-        "compra": 11.78,
-        "data": "01/04/2025"
-      },
-      "3": {
-        "ativo": "CSAN3",
-        "quantidade": 600,
-        "compra": 7.27,
-        "data": "01/04/2025"
-      },
-      "4": {
-        "ativo": "CYRE3",
-        "quantidade": 100,
-        "compra": 21.79,
-        "venda": 21.0,
-        "data": "01/04/2025"
-      },
-      "5": {
-        "ativo": "EQTL3",
-        "quantidade": 100,
-        "compra": 30.95,
-        "venda": 30.07,
-        "data": "01/04/2025"
-      },
-      "6": {
-        "ativo": "HAPV3",
-        "quantidade": 2000,
-        "compra": 2.18,
-        "data": "01/04/2025"
-      },
-      "7": {
-        "ativo": "HYPE3",
-        "quantidade": 200,
-        "compra": 19.37,
-        "data": "01/04/2025"
-      },
-      "8": {
-        "ativo": "SLCE3",
-        "quantidade": 300,
-        "compra": 18.19,
-        "venda": 17.42,
-        "data": "01/04/2025"
-      },
-      "9": {
-        "ativo": "EGIE3",
-        "quantidade": 300,
-        "compra": 38.8,
-        "data": "01/04/2025"
-      },
-      "10": {
-        "ativo": "SLCE3",
-        "quantidade": 200,
-        "compra": 18.51,
-        "data": "01/04/2025"
-      },
-      "11": {
-        "ativo": "YDUQ3",
-        "quantidade": 200,
-        "compra": 11.9,
-        "data": "01/04/2025"
-      }
+        "1": {
+            "data": "21/02/2025",
+            "ativo": "BBDC4",
+            "quantidade": 500,
+            "compra": 11.78
+        },
+        "2": {
+            "data": "21/02/2025",
+            "ativo": "ABEV3",
+            "quantidade": 500,
+            "compra": 11.14
+        },
+        "3": {
+            "data": "21/02/2025",
+            "ativo": "CSAN3",
+            "quantidade": 600,
+            "compra": 7.27
+        },
+        "4": {
+            "data": "25/02/2025",
+            "ativo": "CYRE3",
+            "quantidade": 100,
+            "compra": 21.79,
+            "venda": 21.0
+        },
+        "5": {
+            "data": "25/02/2025",
+            "ativo": "EQTL3",
+            "quantidade": 100,
+            "compra": 30.95,
+            "venda": 30.07
+        },
+        "6": {
+            "data": "25/02/2025",
+            "ativo": "HAPV3",
+            "quantidade": 2000,
+            "compra": 2.18
+        },
+        "7": {
+            "data": "25/02/2025",
+            "ativo": "HYPE3",
+            "quantidade": 200,
+            "compra": 19.37
+        },
+        "8": {
+            "data": "25/02/2025",
+            "ativo": "SLCE3",
+            "quantidade": 300,
+            "compra": 18.19,
+            "venda": 17.42
+        },
+        "9": {
+            "data": "25/03/2025",
+            "ativo": "EGIE3",
+            "quantidade": 100,
+            "compra": 38.8
+        },
+        "10": {
+            "data": "25/03/2025",
+            "ativo": "SLCE3",
+            "quantidade": 200,
+            "compra": 18.51
+        },
+        "11": {
+            "data": "25/03/2025",
+            "ativo": "YDUQ3",
+            "quantidade": 100,
+            "compra": 11.93
+        },
+        "12": {
+            "data": "15/04/2025",
+            "ativo": "ALOS3",
+            "quantidade": 200,
+            "compra": 19.68
+        },
+        "13": {
+            "data": "15/04/2025",
+            "ativo": "BRSR6",
+            "quantidade": 300,
+            "compra": 10.59
+        },
+        "14": {
+            "data": "15/04/2025",
+            "ativo": "WEGE3",
+            "quantidade": 100,
+            "compra": 46.04
+        }
     }
-  }
-  
+}
