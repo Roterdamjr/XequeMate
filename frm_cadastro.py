@@ -1,6 +1,7 @@
 import streamlit as st
 from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
 import datetime
+import pandas as pd
 
 def exibir_tela():
     todas_acoes, todas_opcoes = fn_buscar_todas()
@@ -81,15 +82,13 @@ def exibir_tela():
 def exibe_grade():
     acoes, opcoes = fn_buscar_venda_compras_vazia()
     if acoes:
-        import pandas as pd
         df = pd.DataFrame(acoes)
         st.dataframe(df)
     else:
         st.warning("Nenhuma ação registrada no momento.")
 
     if opcoes:
-        import pandas as pd
         df = pd.DataFrame(opcoes)
         st.dataframe(df)
     else:
-        st.warning("Nenhuma ação registrada no momento.")
+        st.warning("Nenhuma opção registrada no momento.")

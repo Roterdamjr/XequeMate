@@ -76,21 +76,24 @@ def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, str
     if (tipo_ativo == 'A') and tipo_ordem == 'C':
         print('inserindo')
         db_acoes.insert({
-            'data' : data,
+            'data_compra' : data,
+            'data_venda' : '',
             'ativo': ativo,
             'quantidade': quantidade,
             'compra': preco
         })
 
     elif (tipo_ativo == 'A') and tipo_ordem == 'V':
-        db_acoes.update({'venda': preco}, query.ativo == ativo)
+        db_acoes.update({'venda': preco, 'data_venda': data}, query.ativo == ativo)
+ 
 
     elif (tipo_ativo == 'O') and tipo_ordem == 'C':
-        db_opcoes.update({'compra': preco}, query.ativo == ativo)
+        db_opcoes.update({'compra': preco, 'data_compra': data}, query.ativo == ativo)
 
     elif (tipo_ativo == 'O') and tipo_ordem == 'V':
         db_opcoes.insert({
-            'data' : data,
+            'data_compra' : '' ,
+            'data_venda' : data,
             'ativo': ativo,
             'quantidade': quantidade,
             'venda': preco,
