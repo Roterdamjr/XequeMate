@@ -9,7 +9,7 @@ from funcoes import fn_busca_mapa_precos_atuais
 if 'df_precos' not in st.session_state:
     with st.spinner("Buscando preços atuais..."):
         st.session_state.df_precos = fn_busca_mapa_precos_atuais()
-
+        print(st.session_state.df_precos)
 # ---------- Menu lateral ----------
 st.sidebar.title("Menu")
 opcao = st.sidebar.radio("Selecione uma tela:", ("Cadastro", "Histórico", "Analise", "Ranking"))

@@ -2,7 +2,7 @@ import streamlit as st
 from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
 import datetime
 import pandas as pd
-from funcoes import fn_busca_mapa_precos_atuais
+from funcoes import fn_busca_mapa_precos_atuais,fn_busca_opcao_da_acao
 
 
 def exibir_tela():
@@ -86,8 +86,21 @@ def exibir_tela():
 
 def exibe_grade():
     acoes, opcoes = fn_buscar_venda_compras_vazia()
+    df_precos_atuais = st.session_state.df_precos
+
     if acoes:
         df = pd.DataFrame(acoes)
+        
+        df['strike'] = df['ativo'].apply(lambda ativo: fn_busca_opcao_da_acao(ativo)['strike'] if fn_busca_opcao_da_acao(ativo) else None)
+        
+        # Faz o merge trazendo apenas a coluna 'preco_ativo' do df_precos
+        df = df.merge(
+            df_precos_atuais[['ativo', 'preco_atual']], 
+            on='ativo', 
+            how='left')
+
+        df['resultado'] = df[['preco_atual', 'strike']].min(axis=1) - df['compra']
+
         st.dataframe(df)
     else:
         st.warning("Nenhuma ação registrada no momento.")

@@ -103,6 +103,8 @@ def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, str
 
     return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
     
-
+def fn_busca_opcao_da_acao(acao):
+    _ , opcoes = fn_buscar_venda_compras_vazia()
+    opcao = opcoes[-1]
 
 
