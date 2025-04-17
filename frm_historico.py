@@ -4,7 +4,6 @@ import pandas as pd
 
 
 
-
 def exibir_historico():
     todas_acoes, todas_opcoes = fn_buscar_todas()
     df_precos_atuais = st.session_state.df_precos

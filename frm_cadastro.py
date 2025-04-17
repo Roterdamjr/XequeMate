@@ -2,6 +2,8 @@ import streamlit as st
 from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
 import datetime
 import pandas as pd
+from funcoes import fn_busca_mapa_precos_atuais
+
 
 def exibir_tela():
     todas_acoes, todas_opcoes = fn_buscar_todas()
@@ -67,6 +69,9 @@ def exibir_tela():
 
         st.write( retorno['mensagem']) 
 
+        #atualiza o Dataframe com preccos atuais
+        st.session_state.df_precos = fn_busca_mapa_precos_atuais()
+        st.write( 'atualizando precos') 
     exibe_grade()
 
     ################  Adiciona estilo CSS para alterar a cor do botão

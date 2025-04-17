@@ -99,6 +99,7 @@ def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, str
             'venda': preco,
             'strike' : strike
         })
+        
 
     return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
     
