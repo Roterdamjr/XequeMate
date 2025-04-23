@@ -2,6 +2,7 @@ from db_funcoes import fn_buscar_todas, fn_buscar_venda_compras_vazia
 import pandas as pd
 import yfinance as yf
 
+
 def fn_buscar_preco_atual(ticker):
     try:
         ticker += '.SA'
@@ -28,6 +29,8 @@ def fn_busca_opcao_da_acao(acao):
     lista = [op for op in opcoes if op['ativo'][:4] == radical]
     opcao = lista[-1] if lista else None
     return opcao
+
+
 
 def obter_strike(ativo):
     dados = fn_busca_opcao_da_acao(ativo)

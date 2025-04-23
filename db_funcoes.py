@@ -91,20 +91,27 @@ def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, str
         db_opcoes.update({'compra': preco, 'data_compra': data}, query.ativo == ativo)
 
     elif (tipo_ativo == 'O') and tipo_ordem == 'V':
+        id_acao = fn_busca_acao_nao_vendida_da_opcao(ativo).doc_id
         db_opcoes.insert({
             'data_compra' : '' ,
             'data_venda' : data,
             'ativo': ativo,
             'quantidade': quantidade,
             'venda': preco,
-            'strike' : strike
+            'strike' : strike,
+            'id_acao': id_acao
         })
         
 
     return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
+
+
+def fn_busca_acao_nao_vendida_da_opcao(opcao):
+    if len(opcao) < 4:
+        return None
     
-def fn_busca_opcao_da_acao(acao):
-    _ , opcoes = fn_buscar_venda_compras_vazia()
-    opcao = opcoes[-1]
-
-
+    radical = opcao[:4]
+    acoes , _ = fn_buscar_venda_compras_vazia()
+    lista = [ac for ac in acoes if ac['ativo'][:4] == radical]
+    acao = lista[-1] if lista else None
+    return acao  
