@@ -1,14 +1,39 @@
-from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
-import datetime
+import streamlit as st
+from funcoes import obter_strike ,fn_busca_ativo_pai,fn_busca_mapa_precos_atuais
+from db_funcoes import fn_buscar_todas
 import pandas as pd
-from funcoes import fn_busca_mapa_precos_atuais,fn_busca_opcao_da_acao,fn_busca_ativo_pai
+from datetime import datetime
 
+from datetime import datetime
 
+df_precos_atuais =  fn_busca_mapa_precos_atuais()
 todas_acoes, todas_opcoes = fn_buscar_todas()
-df_acoes = pd.DataFrame(todas_acoes)
-df = df_acoes.loc[df_acoes['ativo'] == 'BBDC4'].iloc[0][0]
 
+if todas_acoes:
+    df_acoes = pd.DataFrame(todas_acoes)
+    df_acoes['strike'] = df_acoes['ativo'].apply(obter_strike)
 
-print((df))
+    df_acoes = df_acoes.merge(
+        df_precos_atuais[['ativo', 'preco_atual']], 
+        on='ativo', 
+        how='left')
 
+    df_acoes['resultado'] = (df_acoes[['preco_atual', 'strike']].min(axis=1) - df_acoes['compra']) * df_acoes['quantidade']
+
+if todas_opcoes:
+    df_opcoes = pd.DataFrame(todas_opcoes)
+    df_opcoes['resultado'] = df_opcoes['venda'] * df_opcoes['quantidade']
+
+df_total = pd.concat([df_acoes , df_opcoes], ignore_index=True)
+
+df_total['ativo_pai'] = df_total['ativo'].apply(lambda x: fn_busca_ativo_pai(x)['ativo'])
+
+df_total['dt_compra_pai'] = df_total['ativo'].apply(lambda x: fn_busca_ativo_pai(x)['data_compra'])
+#convertte pra data
+df_total['dt_compra_pai'] = df_total['dt_compra_pai'] .apply(lambda x : datetime.strptime(x, "%d/%m/%Y"))
+
+df_total = df_total.sort_values(['dt_compra_pai', 'ativo'])
+df_total = df_total.drop(columns=['ativo_pai', 'dt_compra_pai'])
+
+print(df_total['resultado'].sum())
 
