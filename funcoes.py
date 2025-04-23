@@ -25,7 +25,24 @@ def fn_busca_opcao_da_acao(acao):
     radical = acao[:4]
     _ , opcoes = fn_buscar_venda_compras_vazia()
     
-    lista = [op for op in opcoes if op['ativo'][:4]==radical]
+    lista = [op for op in opcoes if op['ativo'][:4] == radical]
     opcao = lista[-1] if lista else None
     return opcao
+
+def obter_strike(ativo):
+    dados = fn_busca_opcao_da_acao(ativo)
+    return dados['strike'] if dados else None
+
+def fn_busca_ativo_pai(ativo):
+    todas_acoes, _ = fn_buscar_todas()
+    radical = ativo[:4]
+
+    if len(ativo) == 5:
+        df_acoes = pd.DataFrame(todas_acoes)
+        dt_compra = df_acoes.loc[df_acoes['ativo'] == ativo].iloc[0][0]
+        return {'ativo': ativo,  'data_compra': dt_compra} 
+    else:
+        lista = [acao for acao in todas_acoes if acao['ativo'][:4] == radical]
+        return dict(lista[0])
+
 

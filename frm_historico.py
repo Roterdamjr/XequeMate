@@ -9,13 +9,13 @@ def exibir_historico():
     if todas_acoes:
         df = pd.DataFrame(todas_acoes)
 
-        df['resultado'] = df['venda'] - df['compra']
-        
         df = df.merge(
             df_precos_atuais[['ativo', 'preco_atual']], 
             on='ativo', 
             how='left')
 
+        df['resultado'] = df['venda'] - df['compra']
+        
         st.dataframe(df)
     else:
         st.warning("Nenhuma ação registrada no momento.")

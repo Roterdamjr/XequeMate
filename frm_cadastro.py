@@ -2,8 +2,8 @@ import streamlit as st
 from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
 import datetime
 import pandas as pd
-from funcoes import fn_busca_mapa_precos_atuais,fn_busca_opcao_da_acao
-
+from funcoes import fn_busca_mapa_precos_atuais,obter_strike
+import numpy as np
 
 def exibir_tela():
     todas_acoes, todas_opcoes = fn_buscar_todas()
@@ -91,17 +91,41 @@ def exibe_grade():
     if acoes:
         df = pd.DataFrame(acoes)
         
-        df['strike'] = df['ativo'].apply(lambda ativo: fn_busca_opcao_da_acao(ativo)['strike'] if fn_busca_opcao_da_acao(ativo) else None)
-        
+        df['strike'] = df['ativo'].apply(obter_strike)
+
         # Faz o merge trazendo apenas a coluna 'preco_ativo' do df_precos
         df = df.merge(
             df_precos_atuais[['ativo', 'preco_atual']], 
             on='ativo', 
             how='left')
 
-        df['resultado'] = df[['preco_atual', 'strike']].min(axis=1) - df['compra']
+        df['resultado'] = (df[['preco_atual', 'strike']].min(axis=1) - df['compra']) * df['quantidade']
+        
+        df['result_perc'] = round(100 * (df['preco_atual'] / df['compra'] - 1), 2)
 
-        st.dataframe(df)
+        # Calcula os totais
+        total_resultado = df['resultado'].sum()
+        total_investido = (df['quantidade'] * df['compra']).sum()
+        result_perc_total = round(100 * total_resultado / total_investido , 2)
+        result_perc_total = f"{result_perc_total * 100:.1f}%"  
+
+        total_row = pd.DataFrame([{
+            'data_compra' : np.nan,
+            'data_venda': np.nan,
+            'ativo': 'TOTAL',
+            'quantidade': np.nan,
+            'compra': np.nan,
+            'strike': np.nan,
+            'preco_atual': np.nan,
+            'resultado': total_resultado,     
+            'result_perc': result_perc_total 
+        }])
+        
+        df_total = pd.concat([df, total_row], ignore_index=True)
+        
+        st.dataframe(df_total)
+ 
+
     else:
         st.warning("Nenhuma ação registrada no momento.")
 
