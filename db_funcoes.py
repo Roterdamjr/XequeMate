@@ -1,4 +1,3 @@
-
 from tinydb import TinyDB,Query
 
 db_acoes = TinyDB('acoes.json')
@@ -106,12 +105,3 @@ def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, str
     return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
 
 
-def fn_busca_acao_nao_vendida_da_opcao(opcao):
-    if len(opcao) < 4:
-        return None
-    
-    radical = opcao[:4]
-    acoes , _ = fn_buscar_venda_compras_vazia()
-    lista = [ac for ac in acoes if ac['ativo'][:4] == radical]
-    acao = lista[-1] if lista else None
-    return acao  

@@ -11,6 +11,8 @@ def exibir_desempenho():
 
     if todas_acoes:
         df_acoes = pd.DataFrame(todas_acoes)
+        
+        # obtem strike
         df_acoes['strike'] = df_acoes['ativo'].apply(obter_strike)
 
         df_acoes = df_acoes.merge(

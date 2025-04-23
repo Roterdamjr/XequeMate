@@ -31,7 +31,7 @@
         },
         "5": {
             "data_compra": "25/02/2025",
-            "data_venda":  "21/03/2025",
+            "data_venda": "21/03/2025",
             "ativo": "EQTL3",
             "quantidade": 100,
             "compra": 30.95,
@@ -53,7 +53,7 @@
         },
         "8": {
             "data_compra": "25/02/2025",
-            "data_venda":  "21/03/2025",
+            "data_venda": "21/03/2025",
             "ativo": "SLCE3",
             "quantidade": 300,
             "compra": 18.19,
