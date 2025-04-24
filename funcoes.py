@@ -1,7 +1,7 @@
-from db_funcoes import fn_buscar_todas, fn_buscar_venda_compras_vazia
-import pandas as pd
+from db_funcoes import fn_buscar_todas, fn_buscar_venda_compras_vazia,fn_buscar_opcoes_por_id_acao
 import yfinance as yf
-
+from datetime import datetime
+import pandas as pd
 
 def fn_buscar_preco_atual(ticker):
     try:
@@ -20,10 +20,15 @@ def fn_busca_mapa_precos_atuais():
     return df_precos_unicos
 
 
-def obter_strike(ativo):
-    opcoes = fn_busca_opcoes_da_acao(ativo)
-    return opcoes['strike'] if opcoes else None
+def fn_obter_strike(id_ativo):
+    opcoes = fn_buscar_opcoes_por_id_acao(id_ativo)
+    if not opcoes:
+        return None
+    # traz a opcao mais recente
+    opcoes.sort(key=lambda x: datetime.strptime(x['data_venda'], '%d/%m/%Y'), reverse=True)
+    return opcoes[0]['strike']  
 
+'''
 def fn_busca_opcoes_da_acao(acao):
     #recebe uma Acao e retorna todas opcoes correpondentes 
     if len(acao) < 4:
@@ -37,7 +42,7 @@ def fn_busca_opcoes_da_acao(acao):
     #opcao = lista[-1] if lista else None
     #return opcao
 
-
+'''
 
 
 

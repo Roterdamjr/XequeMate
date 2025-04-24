@@ -8,14 +8,42 @@ def apaga_banco():
     db_opcoes.truncate()
 
 def fn_buscar_venda_compras_vazia():
+    #retorna duas listas de dicionario
     acoes = db_acoes.all()
     opcoes = db_opcoes.all()
     return [r for r in acoes if 'venda' not in r], [r for r in opcoes if 'compra' not in r]
 
+def fn_buscar_venda_compras_vazia_tuplas():
+    #retorna tuplas (id,ativo)
+    acoes_sem_venda = [
+        (doc.doc_id, doc['ativo']) 
+        for doc in db_acoes.all() 
+        if not doc.get('data_venda')
+    ]
+    opcoes_sem_compra = [
+        (doc.doc_id, doc['ativo']) 
+        for doc in db_opcoes.all() 
+        if not doc.get('compra')
+    ]
+    return acoes_sem_venda, opcoes_sem_compra
+
 def fn_buscar_todas():
     return db_acoes.all(),db_opcoes.all()
   
+def fn_buscar_opcoes_por_id_acao(id_acao: str):
+    # retorna uma lista de dicionarios
+    opcoes = db_opcoes.all()
+    return [op for op in opcoes if op.get('id_acao') == id_acao]
+
+def fn_buscar_acao_por_id_opcao(id_opcao):
+    # retorna a acao no formato tinydb.table.Document
+    opcao = db_opcoes.get(doc_id=int(id_opcao))
+    if not opcao or "id_acao" not in opcao:
+        return None
     
+    id_acao = opcao["id_acao"]
+    return db_acoes.get(doc_id=int(id_acao))
+
 def fn_validacao(tipo_ativo, ativo, tipo_ordem):
     query = Query()
     msg= ''
@@ -63,16 +91,15 @@ def fn_validacao(tipo_ativo, ativo, tipo_ordem):
 
     return {'valido': True,'mensagem': 'Registro lançado!'}
 
-def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, strike=0):
+def fn_inserir_ordem_acao(data, ativo, tipo_ordem, quantidade, preco):
 
     query = Query()
-
-    resultado_validacao = fn_validacao(tipo_ativo, ativo, tipo_ordem)
+    resultado_validacao = fn_validacao('A', ativo, tipo_ordem)
 
     if  not resultado_validacao['valido']:
         return {'mensagem': resultado_validacao['mensagem']}
 
-    if (tipo_ativo == 'A') and tipo_ordem == 'C':
+    if tipo_ordem == 'C':
         print('inserindo')
         db_acoes.insert({
             'data_compra' : data,
@@ -81,16 +108,22 @@ def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, str
             'quantidade': quantidade,
             'compra': preco
         })
-
-    elif (tipo_ativo == 'A') and tipo_ordem == 'V':
+    else:
         db_acoes.update({'venda': preco, 'data_venda': data}, query.ativo == ativo)
  
+    return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
 
-    elif (tipo_ativo == 'O') and tipo_ordem == 'C':
+def fn_inserir_ordem_opcao(data, ativo, tipo_ordem, quantidade, preco, strike, id_acao):
+    
+    query = Query()
+    resultado_validacao = fn_validacao('O', ativo, tipo_ordem)
+
+    if  not resultado_validacao['valido']:
+        return {'mensagem': resultado_validacao['mensagem']}
+
+    if tipo_ordem == 'C':
         db_opcoes.update({'compra': preco, 'data_compra': data}, query.ativo == ativo)
-
-    elif (tipo_ativo == 'O') and tipo_ordem == 'V':
-        id_acao = fn_busca_acao_nao_vendida_da_opcao(ativo).doc_id
+    else:
         db_opcoes.insert({
             'data_compra' : '' ,
             'data_venda' : data,
@@ -101,7 +134,4 @@ def fn_inserir_ordem(data, tipo_ativo, ativo, tipo_ordem, quantidade, preco, str
             'id_acao': id_acao
         })
         
-
     return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
-
-

@@ -1,5 +1,5 @@
 import streamlit as st
-from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
+from db_funcoes import fn_inserir_ordem_acao,fn_buscar_todas
 import pandas as pd
 
 def exibir_historico():

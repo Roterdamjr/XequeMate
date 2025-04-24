@@ -1,8 +1,8 @@
 import streamlit as st
-from db_funcoes import fn_inserir_ordem,fn_buscar_todas,fn_buscar_venda_compras_vazia
+from db_funcoes import fn_inserir_ordem_acao,fn_inserir_ordem_opcao, fn_buscar_todas,fn_buscar_venda_compras_vazia_tuplas,fn_buscar_venda_compras_vazia
 import datetime
 import pandas as pd
-from funcoes import fn_busca_mapa_precos_atuais,obter_strike
+from funcoes import fn_busca_mapa_precos_atuais,fn_obter_strike
 import numpy as np
 
 def exibir_tela():
@@ -15,7 +15,7 @@ def exibir_tela():
         tipo_ordem = st.radio("Tipo de Ordem", ("Comprar", "Vender"))
 
 
-    col_data, col_ativo, col_quantidade, col_preco,col_strike  = st.columns(5)
+    col_data, col_ativo, col_quantidade, col_preco,col_strike, col_acao_pai  = st.columns(6)
 
     ativo = ''
 
@@ -40,7 +40,6 @@ def exibir_tela():
         hoje_formatada = hoje.strftime("%d/%m/%Y")
         data = st.text_input("Data", value=hoje_formatada)
 
-
     with col_quantidade:
         quantidade = st.number_input("Qtd", min_value=1, max_value=9999, step=1)
 
@@ -51,23 +50,33 @@ def exibir_tela():
         if tipo_ativo == "Opção" and tipo_ordem == "Vender":
             strike = st.number_input("Strike", min_value=0.01, max_value=9999.99, step=0.01)
 
+    with col_acao_pai:
+        if tipo_ativo == "Opção" and tipo_ordem == "Vender":
+            tuplas_id_nome , _ = fn_buscar_venda_compras_vazia_tuplas()
+            mapa_nome_para_id = {nome: id_ for id_, nome in tuplas_id_nome}
+            nome_selecionado = st.selectbox("Escolha a ação", list(mapa_nome_para_id.keys()))
 
+
+
+    # botão com a cor definida
     if tipo_ordem == "Comprar":
         button_color = "blue"
     else:
         button_color = "red"
 
-    # botão com a cor definida
+
     sigla_tipo_ordem = 'C' if tipo_ordem == "Comprar" else 'V'
     sigla_tipo_ativo = 'A' if tipo_ativo == "Ação" else 'O'
 
     if st.button(tipo_ordem,  help=None, on_click=None, disabled=False, key=None):
         if tipo_ativo == "Opção" and tipo_ordem == "Vender":
-            retorno = fn_inserir_ordem(data, sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco, strike)
+            id_acao = mapa_nome_para_id[nome_selecionado]
+            retorno = fn_inserir_ordem_opcao(data, ativo ,sigla_tipo_ordem, quantidade, preco, strike ,id_acao)
+            print(id_acao)
         else:
-            retorno = fn_inserir_ordem(data, sigla_tipo_ativo, ativo ,sigla_tipo_ordem, quantidade, preco)
-
-        st.write( retorno['mensagem']) 
+            retorno = fn_inserir_ordem_acao(data, ativo ,sigla_tipo_ordem, quantidade, preco)
+            
+        st.write(retorno['mensagem']) 
 
         #atualiza o Dataframe com preccos atuais
         st.session_state.df_precos = fn_busca_mapa_precos_atuais()
@@ -91,7 +100,7 @@ def exibe_grade():
     if acoes:
         df = pd.DataFrame(acoes)
         
-        df['strike'] = df['ativo'].apply(obter_strike)
+        df['strike'] = df['ativo'].apply(fn_obter_strike)
 
         # Faz o merge trazendo apenas a coluna 'preco_ativo' do df_precos
         df = df.merge(

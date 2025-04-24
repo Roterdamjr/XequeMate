@@ -1,5 +1,5 @@
 import streamlit as st
-from funcoes import obter_strike ,fn_busca_ativo_pai
+from funcoes import fn_obter_strike ,fn_busca_ativo_pai
 from db_funcoes import fn_buscar_todas
 import pandas as pd
 from datetime import datetime
