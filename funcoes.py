@@ -28,21 +28,6 @@ def fn_obter_strike(id_ativo):
     opcoes.sort(key=lambda x: datetime.strptime(x['data_venda'], '%d/%m/%Y'), reverse=True)
     return opcoes[0]['strike']  
 
-'''
-def fn_busca_opcoes_da_acao(acao):
-    #recebe uma Acao e retorna todas opcoes correpondentes 
-    if len(acao) < 4:
-        return None
-    
-    radical = acao[:4]
-    _ , opcoes = fn_buscar_todas()
-    
-    return  [op for op in opcoes if op['ativo'][:4] == radical]
-
-    #opcao = lista[-1] if lista else None
-    #return opcao
-
-'''
 
 
 

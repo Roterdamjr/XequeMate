@@ -100,9 +100,9 @@ def exibe_grade():
     if acoes:
         df = pd.DataFrame(acoes)
         
-        df['strike'] = df['ativo'].apply(fn_obter_strike)
+        df['strike'] = df['id_ativo'].apply(fn_obter_strike)
 
-        # Faz o merge trazendo apenas a coluna 'preco_ativo' do df_precos
+        # Faz o merge trazendo a coluna 'preco_ativo' do df_precos
         df = df.merge(
             df_precos_atuais[['ativo', 'preco_atual']], 
             on='ativo', 
@@ -124,7 +124,7 @@ def exibe_grade():
             'ativo': 'TOTAL',
             'quantidade': np.nan,
             'compra': np.nan,
-            'strike': np.nan,
+            #'strike': np.nan,
             'preco_atual': np.nan,
             'resultado': total_resultado,     
             'result_perc': result_perc_total 

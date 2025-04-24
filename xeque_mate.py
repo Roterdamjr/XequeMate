@@ -19,14 +19,14 @@ if 'df_precos' not in st.session_state:
        
 # ---------- Menu lateral ----------
 st.sidebar.title("Menu")
-opcao = st.sidebar.radio("Selecione uma tela:", ("Cadastro", "Histórico", "Desempenho", "Ranking"))
+opcao = st.sidebar.radio("Selecione uma tela:", ("Cadastro", "Desempenho", "Histórico", "Ranking"))
 
 # ---------- Roteamento de telas ----------
 if opcao == "Cadastro":
     exibir_tela()
-elif opcao == "Histórico":
-    exibir_historico()
 elif opcao == "Desempenho":
     exibir_desempenho()
+elif opcao == "Histórico":
+    exibir_historico()
 elif opcao == "Ranking":
     exibir_tela()

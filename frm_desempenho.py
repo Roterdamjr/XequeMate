@@ -13,7 +13,7 @@ def exibir_desempenho():
         df_acoes = pd.DataFrame(todas_acoes)
         
         # obtem strike
-        df_acoes['strike'] = df_acoes['ativo'].apply(obter_strike)
+        df_acoes['strike'] = df_acoes['id_ativo'].apply(fn_obter_strike)
 
         df_acoes = df_acoes.merge(
             df_precos_atuais[['ativo', 'preco_atual']], 
@@ -24,7 +24,9 @@ def exibir_desempenho():
 
     if todas_opcoes:
         df_opcoes = pd.DataFrame(todas_opcoes)
-        df_opcoes['resultado'] = df_opcoes['venda'] * df_opcoes['quantidade']
+        # preenche com zeros campos vazos
+        df_opcoes['compra'] = pd.to_numeric(df_opcoes['compra'], errors='coerce').fillna(0.0)
+        df_opcoes['resultado'] = (df_opcoes['venda'] -df_opcoes['compra']) * df_opcoes['quantidade']
 
     df_total = pd.concat([df_acoes , df_opcoes], ignore_index=True)
 

@@ -9,9 +9,12 @@ def apaga_banco():
 
 def fn_buscar_venda_compras_vazia():
     #retorna duas listas de dicionario
-    acoes = db_acoes.all()
-    opcoes = db_opcoes.all()
-    return [r for r in acoes if 'venda' not in r], [r for r in opcoes if 'compra' not in r]
+   acoes, opcoes = fn_buscar_todas()
+  
+   acoes_sem_venda = [acao for acao in acoes if acao.get("data_venda", "").strip() == ""]
+   opcoes_sem_compra = [opcao for opcao in opcoes if opcao.get("data_compra", "").strip() == ""]
+   return acoes_sem_venda,opcoes_sem_compra
+
 
 def fn_buscar_venda_compras_vazia_tuplas():
     #retorna tuplas (id,ativo)
@@ -28,7 +31,13 @@ def fn_buscar_venda_compras_vazia_tuplas():
     return acoes_sem_venda, opcoes_sem_compra
 
 def fn_buscar_todas():
-    return db_acoes.all(),db_opcoes.all()
+    # retorna uma lista de dicionarios com todas acoes, incluido o campo id_ativo 
+    # e uma lista de dicionarios com todas opoes
+    lista_com_id  = [
+            {**doc, "id_ativo": str(doc.doc_id)}  # ou sem str() se quiser manter como int
+            for doc in db_acoes.all()
+        ]
+    return lista_com_id, db_opcoes.all()
   
 def fn_buscar_opcoes_por_id_acao(id_acao: str):
     # retorna uma lista de dicionarios

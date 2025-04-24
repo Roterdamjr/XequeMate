@@ -6,30 +6,27 @@ import pandas as pd
 from tinydb import TinyDB,Query
 from datetime import datetime
 
+
 db_acoes = TinyDB('acoes.json')
 db_opcoes  = TinyDB('opcoes.json')
 
-def fn_buscar_opcoes_por_id_acao(id_acao: str):
-    # retorna uma lista de dicionarios
-    opcoes = db_opcoes.all()
-    return [op for op in opcoes if op.get('id_acao') == id_acao]
+def fn_buscar_todas():
+    # retorna uma lista de dicionarios com todas acoes, incluido o campo id_ativo 
+    # e uma lista de dicionarios com todas opoes
+    lista_com_id  = [
+            {**doc, "id_ativo": str(doc.doc_id)}  # ou sem str() se quiser manter como int
+            for doc in db_acoes.all()
+        ]
+    return lista_com_id, db_opcoes.all()
 
-def fn_obter_strike(id_ativo):
-    opcoes = fn_buscar_opcoes_por_id_acao(id_ativo)
-    if not opcoes:
-        return None
-    # traz a opcao mais recente
-    opcoes.sort(key=lambda x: datetime.strptime(x['data_venda'], '%d/%m/%Y'), reverse=True)
-    return opcoes[0]['strike']  
+def fn_buscar_venda_compras_vazia():
+   acoes, opcoes = fn_buscar_todas()
+  
+   acoes_sem_venda = [acao for acao in acoes if acao.get("data_venda", "").strip() == ""]
+   opcoes_sem_compra = [opcao for opcao in opcoes if opcao.get("data_compra", "").strip() == ""]
+   return acoes_sem_venda,opcoes_sem_compra
 
-df = pd.DataFrame(db_acoes)
-df['strike'] = df['ativo'].apply(fn_obter_strike)
-
-# Faz o merge trazendo apenas a coluna 'preco_ativo' do df_precos
-df = df.merge(
-    df_precos_atuais[['ativo', 'preco_atual']], 
-    on='ativo', 
-    how='left')
-
-print( fn_obter_strike('1'))
+acoes,opcoes = fn_buscar_venda_compras_vazia()
+df = pd.DataFrame(acoes)
+print(df)
 
