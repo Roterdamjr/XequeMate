@@ -8,7 +8,7 @@
       "venda": 0.15,
       "strike": 12.32,
       "compra": 0.15,
-      "id_acao": "1"
+      "id_acao": 1
     },
     "2": {
       "data_compra": "",
@@ -17,7 +17,7 @@
       "quantidade": 600,
       "venda": 0.08,
       "strike": 8.4,
-      "id_acao": "3"
+      "id_acao": 3
     },
     "3": {
       "data_compra": "",
@@ -26,7 +26,7 @@
       "quantidade": 500,
       "venda": 0.11,
       "strike": 12.0,
-      "id_acao": "2"
+      "id_acao": 2
     },
     "4": {
       "data_compra": "",
@@ -35,7 +35,7 @@
       "quantidade": 100,
       "venda": 1.33,
       "strike": 21.0,
-      "id_acao": "4"
+      "id_acao": 4
     },
     "5": {
       "data_compra": "",
@@ -44,7 +44,7 @@
       "quantidade": 100,
       "venda": 1.5,
       "strike": 30.07,
-      "id_acao": "5"
+      "id_acao": 5
     },
     "6": {
       "data_compra": "15/04/2025",
@@ -54,7 +54,7 @@
       "venda": 0.35,
       "strike": 12.52,
       "compra": 0.56,
-      "id_acao": "1"
+      "id_acao": 1
     },
     "7": {
       "data_compra": "",
@@ -63,7 +63,7 @@
       "quantidade": 300,
       "venda": 0.94,
       "strike": 17.42,
-      "id_acao": "10"
+      "id_acao": 8
     },
     "8": {
       "data_compra": "",
@@ -72,7 +72,7 @@
       "quantidade": 2000,
       "venda": 0.02,
       "strike": 2.65,
-      "id_acao": "6"
+      "id_acao": 6
     },
     "9": {
       "data_compra": "",
@@ -81,7 +81,7 @@
       "quantidade": 600,
       "venda": 0.13,
       "strike": 8.2,
-      "id_acao": "3"
+      "id_acao": 3
     },
     "10": {
       "data_compra": "",
@@ -90,7 +90,7 @@
       "quantidade": 2000,
       "venda": 0.06,
       "strike": 2.45,
-      "id_acao": "6"
+      "id_acao": 6
     },
     "11": {
       "data_compra": "",
@@ -99,7 +99,7 @@
       "quantidade": 200,
       "venda": 0.64,
       "strike": 18.25,
-      "id_acao": "10"
+      "id_acao": 10
     },
     "12": {
       "data_compra": "",
@@ -108,7 +108,7 @@
       "quantidade": 200,
       "venda": 1.24,
       "strike": 10.96,
-      "id_acao": "11"
+      "id_acao": 11
     },
     "13": {
       "data_compra": "",
@@ -117,7 +117,7 @@
       "quantidade": 200,
       "venda": 0.35,
       "strike": 20.38,
-      "id_acao": "12"
+      "id_acao": 12
     },
     "14": {
       "data_compra": "",
@@ -126,7 +126,7 @@
       "quantidade": 500,
       "venda": 0.65,
       "strike": 12.58,
-      "id_acao": "1"
+      "id_acao": 1
     },
     "15": {
       "data_compra": "",
@@ -135,7 +135,7 @@
       "quantidade": 300,
       "venda": 0.37,
       "strike": 10.56,
-      "id_acao": "13"
+      "id_acao": 13
     },
     "16": {
       "data_compra": "",
@@ -144,7 +144,7 @@
       "quantidade": 100,
       "venda": 1.57,
       "strike": 45.85,
-      "id_acao": "14"
+      "id_acao": 14
     },
     "17": {
       "data_compra": "19/03/2025",
@@ -154,7 +154,7 @@
       "venda": 0.3,
       "strike": 21.21,
       "compra": 0.32,
-      "id_acao": "7"
+      "id_acao": 7
     },
     "18": {
       "data_compra": "",
@@ -163,7 +163,7 @@
       "quantidade": 200,
       "venda": 0.33,
       "strike": 21.98,
-      "id_acao": "7"
+      "id_acao": 7
     },
     "19": {
       "data_compra": "",
@@ -172,7 +172,7 @@
       "quantidade": 100,
       "venda": 0.9,
       "strike": 38.5,
-      "id_acao": "9"
+      "id_acao": 9
     }
   }
 }

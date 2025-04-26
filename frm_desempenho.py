@@ -3,6 +3,7 @@ from funcoes import fn_obter_strike ,fn_busca_ativo_pai
 from db_funcoes import fn_buscar_todas
 import pandas as pd
 from datetime import datetime
+import numpy as np
 
 def exibir_desempenho():
 
@@ -19,8 +20,14 @@ def exibir_desempenho():
             df_precos_atuais[['ativo', 'preco_atual']], 
             on='ativo', 
             how='left')
-
-        df_acoes['resultado'] = (df_acoes[['preco_atual', 'strike']].min(axis=1) - df_acoes['compra']) * df_acoes['quantidade']
+        
+        # se acao ja foi vendida resultado = venda -compra
+        # senão, resultado =  menor valor entre strike e preço atual - compra
+        df_acoes['resultado'] = np.where(
+            df_acoes['venda'].notna(),  # Se já houve venda
+            (df_acoes['venda'] - df_acoes['compra']) * df_acoes['quantidade'],
+            (df_acoes[['preco_atual', 'strike']].min(axis=1) - df_acoes['compra']) * df_acoes['quantidade']
+            )
 
     if todas_opcoes:
         df_opcoes = pd.DataFrame(todas_opcoes)

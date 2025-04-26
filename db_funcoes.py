@@ -34,12 +34,12 @@ def fn_buscar_todas():
     # retorna uma lista de dicionarios com todas acoes, incluido o campo id_ativo 
     # e uma lista de dicionarios com todas opoes
     lista_com_id  = [
-            {**doc, "id_ativo": str(doc.doc_id)}  # ou sem str() se quiser manter como int
+            {**doc, "id_ativo": doc.doc_id}  # ou sem str() se quiser manter como int
             for doc in db_acoes.all()
         ]
     return lista_com_id, db_opcoes.all()
   
-def fn_buscar_opcoes_por_id_acao(id_acao: str):
+def fn_buscar_opcoes_por_id_acao(id_acao):
     # retorna uma lista de dicionarios
     opcoes = db_opcoes.all()
     return [op for op in opcoes if op.get('id_acao') == id_acao]
