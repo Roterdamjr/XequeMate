@@ -124,22 +124,21 @@ def exibe_grade():
             'ativo': 'TOTAL',
             'quantidade': np.nan,
             'compra': np.nan,
-            #'strike': np.nan,
             'preco_atual': np.nan,
             'resultado': total_resultado,     
             'result_perc': result_perc_total 
         }])
         
         df_total = pd.concat([df, total_row], ignore_index=True)
-        
-        st.dataframe(df_total)
- 
+        df_total = df_total.drop(columns=['data_venda', 'id_ativo'])
 
+        st.dataframe(df_total)
     else:
         st.warning("Nenhuma ação registrada no momento.")
 
     if opcoes:
-        df = pd.DataFrame(opcoes)
-        st.dataframe(df)
+        df_opcoes = pd.DataFrame(opcoes)
+        df_opcoes = df_opcoes.drop(columns=['data_compra', 'id_acao'])
+        st.dataframe(df_opcoes)
     else:
         st.warning("Nenhuma opção registrada no momento.")
