@@ -19,7 +19,6 @@ df_acoes = df_acoes[['id_ativo','data_compra',  'data_venda',  'ativo','quantida
 
 df_opcoes = pd.DataFrame(todas_opcoes)
 df_opcoes = df_opcoes.rename(columns={'id_acao': 'id_ativo'})
-
 df_opcoes=df_opcoes[['id_ativo','data_compra',  'data_venda',  'ativo','quantidade','compra','venda','strike']]
 
 
