@@ -102,6 +102,10 @@ def fn_popula_dados(df_precos_atuais):
     df_ativos['dt_compra_pai'] = df_ativos['ativo'].apply(lambda x: fn_busca_ativo_pai(x)['data_compra'])
     df_ativos['dt_compra_pai'] = pd.to_datetime(df_ativos['dt_compra_pai'], format="%d/%m/%Y")
 
+    df_ativos['resultado'] = df_ativos['resultado'].map('{:.2f}'.format)
+    df_ativos['strike'] = df_ativos['strike'].map('{:.2f}'.format)
+
+
     df_ativos = df_ativos.sort_values(['dt_compra_pai', 'id_ativo'])
     df_ativos = df_ativos.drop(columns=['dt_compra_pai', 'ativo_pai'])
 
