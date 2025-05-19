@@ -29,11 +29,17 @@ def fn_buscar_venda_compras_vazia():
 
 def fn_buscar_venda_compras_vazia_tuplas():
     #retorna tuplas (id,ativo)
-    acoes_sem_venda = [
-        (doc.doc_id, doc['ativo']) 
-        for doc in db_acoes.all() 
-        if not doc.get('data_venda')
-    ]
+    acoes, opcoes = fn_buscar_todas()
+
+    ativos_abertos = set()
+
+    # 1. Identifica os id_ativos das ações sem venda
+    for acao in acoes:
+        if 'venda' not in acao or not acao['venda']:
+            ativos_abertos.add(acao['id_ativo'])
+    
+    acoes_sem_venda = [ (acao.get('id_ativo'), acao.get('ativo')) for acao in acoes if acao['id_ativo'] in ativos_abertos]
+
     opcoes_sem_compra = [
         (doc.doc_id, doc['ativo']) 
         for doc in db_opcoes.all() 
@@ -119,8 +125,7 @@ def fn_inserir_ordem_acao(data, ativo, tipo_ordem, quantidade, preco):
     if  not resultado_validacao['valido']:
         return {'mensagem': resultado_validacao['mensagem']}
 
-    if tipo_ordem == 'C':
-        print('inserindo')
+    if tipo_ordem == 'C':     
         db_acoes.insert({
             'data_compra' : data,
             'data_venda' : '',
@@ -128,6 +133,7 @@ def fn_inserir_ordem_acao(data, ativo, tipo_ordem, quantidade, preco):
             'quantidade': quantidade,
             'compra': preco
         })
+        
     else:
         db_acoes.update({'venda': preco, 'data_venda': data}, query.ativo == ativo)
  
@@ -155,3 +161,60 @@ def fn_inserir_ordem_opcao(data, ativo, tipo_ordem, quantidade, preco, strike, i
         })
         
     return {'valido': True, 'mensagem': resultado_validacao['mensagem']}
+
+def fn_ordem_acao_insert(data, ativo,  quantidade, preco):
+    
+    query = Query()
+    resultado_validacao = fn_validacao('A', ativo, 'C')
+
+    if  not resultado_validacao['valido']:
+        return {'mensagem': resultado_validacao['mensagem']}
+
+    db_acoes.insert({
+        'data_compra' : data,
+        'data_venda' : '',
+        'ativo': ativo,
+        'quantidade': quantidade,
+        'compra': preco
+    })
+
+    return {'valido': True, 'mensagem': 'ok'}
+
+def fn_ordem_acao_update(data, preco,id_acao):
+
+    query = Query()
+
+    print('############################################################################################')
+    print('venda:', preco, '  data_venda:', data,' doc_ids:' ,int(id_acao))
+    print('############################################################################################')
+    db_acoes.update({'venda': preco, 'data_venda': data}, doc_ids=[int(id_acao)])
+
+    return {'valido': True, 'mensagem': 'ok'}
+
+def fn_ordem_opcao_insert(data, ativo, quantidade, preco, strike, id_acao):
+    query = Query()
+
+    resultado_validacao = fn_validacao('O', ativo, 'V')
+
+    if  not resultado_validacao['valido']:
+        return {'mensagem': resultado_validacao['mensagem']}
+    
+    db_opcoes.insert({
+        'data_compra' : '' ,
+        'data_venda' : data,
+        'ativo': ativo,
+        'quantidade': quantidade,
+        'venda': preco,
+        'strike' : strike,
+        'id_acao': id_acao
+    })
+
+    return {'valido': True, 'mensagem': 'ok'}
+
+    
+def fn_ordem_opcao_update(data, preco,  id_ativo):
+    query = Query()
+
+    db_opcoes.update({'compra': preco, 'data_compra': data},doc_ids=[int(id_ativo)])
+
+    return {'valido': True, 'mensagem': 'ok'}

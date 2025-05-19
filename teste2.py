@@ -1,13 +1,34 @@
 
-from db_funcoes import fn_buscar_venda_compras_vazia,fn_buscar_opcoes_por_id_acao
-from funcoes import fn_obter_strike
-from tinydb import TinyDB,Query
-import streamlit as st
+def fn_ordem_acao_insert_test(data, ativo,  quantidade, preco):
+        print('insert -> ', 
+              ' data_compra: ' , data,
+            ' data_venda: ' , '',
+            ' ativo:' , ativo,
+            ' quantidade: ' , quantidade,
+            ' compra:' , preco)
 
+def fn_ordem_acao_update_test(data, preco,id_acao):
+        print('update-> ', 
+              ' venda:' , preco, 
+              ' data_venda:', data,
+              ' id_acao:', id_acao)
+ 
 
+def fn_ordem_opcao_insert_test(data, ativo, quantidade, preco, strike, id_acao):
 
-db_acoes = TinyDB('acoes.json')
-db_opcoes  = TinyDB('opcoes.json')
+        print('insert -> ',
+            ' data_compra:' , '' ,
+            ' data_venda:' , data,
+            ' ativo:', ativo,
+            ' quantidade:', quantidade,
+            ' venda:', preco,
+            ' strike:', strike,
+            ' id_acao:' , id_acao
+        )
 
-op = fn_obter_strike('15')
-print(op)
+    
+def fn_ordem_opcao_update_test(data, preco,  id_ativo):
+    print('update-> ',
+          ' compra:', preco, 
+          ' data_compra: ', data , 
+          ' id_ativo:', id_ativo)

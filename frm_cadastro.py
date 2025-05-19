@@ -1,9 +1,10 @@
 import streamlit as st
-from db_funcoes import fn_inserir_ordem_acao,fn_inserir_ordem_opcao, fn_buscar_todas,fn_buscar_venda_compras_vazia_tuplas,fn_buscar_venda_compras_vazia
+from db_funcoes import fn_ordem_acao_insert, fn_ordem_acao_update, fn_ordem_opcao_insert, fn_ordem_opcao_update, fn_buscar_todas,fn_buscar_venda_compras_vazia_tuplas,fn_buscar_venda_compras_vazia
 import datetime
 import pandas as pd
 from funcoes import fn_busca_mapa_precos_atuais,fn_obter_strike
 import numpy as np
+
 
 def exibir_tela():
     todas_acoes, todas_opcoes = fn_buscar_todas()
@@ -20,6 +21,12 @@ def exibir_tela():
     ativo = ''
 
     acoes_venda_vazia, opcoes_compra_vazia = fn_buscar_venda_compras_vazia()
+    
+    # popula dict 'mapa_nome_para_id' com id_ativo e nome das acoes ainda não vendidas
+    tuplas_id_nome , _ = fn_buscar_venda_compras_vazia_tuplas()
+    mapa_nome_para_id = {nome: id_ for id_, nome in tuplas_id_nome}
+
+
     with col_ativo:
         # Lógica para exibir a caixa de texto ou listbox
         if tipo_ativo == "Ação" and tipo_ordem == "Comprar":
@@ -52,10 +59,7 @@ def exibir_tela():
 
     with col_acao_pai:
         if tipo_ativo == "Opção" and tipo_ordem == "Vender":
-            tuplas_id_nome , _ = fn_buscar_venda_compras_vazia_tuplas()
-            mapa_nome_para_id = {nome: id_ for id_, nome in tuplas_id_nome}
             nome_selecionado = st.selectbox("Escolha a ação", list(mapa_nome_para_id.keys()))
-
 
 
     # botão com a cor definida
@@ -69,12 +73,24 @@ def exibir_tela():
     sigla_tipo_ativo = 'A' if tipo_ativo == "Ação" else 'O'
 
     if st.button(tipo_ordem,  help=None, on_click=None, disabled=False, key=None):
-        if tipo_ativo == "Opção" and tipo_ordem == "Vender":
-            id_acao = mapa_nome_para_id[nome_selecionado]
-            retorno = fn_inserir_ordem_opcao(data, ativo ,sigla_tipo_ordem, quantidade, preco, strike ,id_acao)
-            print(id_acao)
+        if tipo_ativo == "Ação" and tipo_ordem == "Comprar":
+            retorno = fn_ordem_acao_insert(data, ativo , quantidade, preco)
+
+        elif tipo_ativo == "Ação" and tipo_ordem == "Vender":
+            acoes_sem_venda , _  = fn_buscar_venda_compras_vazia_tuplas()
+            id_acao =[id for id, at in acoes_sem_venda if at == ativo][0]
+            retorno = fn_ordem_acao_update(data,  preco, id_acao)
+            st.write(id_acao)
+            
+        elif tipo_ativo == "Opção" and tipo_ordem == "Comprar":
+            _ , opcoes_sem_compra  = fn_buscar_venda_compras_vazia_tuplas()
+            id_ativo =[id for id, at in opcoes_sem_compra if at == ativo][0]
+            retorno = fn_ordem_opcao_update(data, preco,id_ativo)
+
         else:
-            retorno = fn_inserir_ordem_acao(data, ativo ,sigla_tipo_ordem, quantidade, preco)
+            _ , opcoes_sem_compra  = fn_buscar_venda_compras_vazia_tuplas()
+            id_acao = mapa_nome_para_id[nome_selecionado]
+            retorno = fn_ordem_opcao_insert (data, ativo, quantidade, preco, strike, id_acao)
             
         st.write(retorno['mensagem']) 
 
