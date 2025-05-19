@@ -9,10 +9,11 @@
         },
         "2": {
             "data_compra": "21/02/2025",
-            "data_venda": "",
+            "data_venda": "17/04/2025",
             "ativo": "ABEV3",
             "quantidade": 500,
-            "compra": 11.14
+            "compra": 11.14,
+            "venda": 11.87
         },
         "3": {
             "data_compra": "21/02/2025",
@@ -53,7 +54,7 @@
         },
         "8": {
             "data_compra": "25/02/2025",
-            "data_venda": "21/03/2025",
+            "data_venda": "17/04/2025",
             "ativo": "SLCE3",
             "quantidade": 300,
             "compra": 18.19,
@@ -61,14 +62,15 @@
         },
         "9": {
             "data_compra": "25/03/2025",
-            "data_venda": "",
+            "data_venda": "17/04/2025",
             "ativo": "EGIE3",
             "quantidade": 100,
-            "compra": 38.8
+            "compra": 38.8,
+            "venda": 38.5
         },
         "10": {
             "data_compra": "25/03/2025",
-            "data_venda": "",
+            "data_venda": "17/04/2025",
             "ativo": "SLCE3",
             "quantidade": 200,
             "compra": 18.51

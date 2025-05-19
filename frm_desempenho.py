@@ -17,9 +17,10 @@ def exibir_desempenho():
     df_total = pd.concat([df_ativos, totalizadores], ignore_index=True)
 
     df_total = df_total.sort_values(by=['id_ativo', 'tipo'], ascending=[True, True])
-    df_total = df_total.drop(columns=['tipo','id_ativo'])
+    df_total = df_total.drop(columns=['tipo','id_ativo','data_compra','data_venda'])
 
-    df_total['data_compra'] = df_total[['data_compra','data_venda','ativo','quantidade','compra','venda','strike','preco_atual']].fillna('')
+    colunas = ['ativo','quantidade','compra','venda','strike','preco_atual']
+    df_total[colunas] = df_total[colunas].fillna('')
 
     
     st.dataframe(df_total)

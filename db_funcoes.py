@@ -8,12 +8,23 @@ def apaga_banco():
     db_opcoes.truncate()
 
 def fn_buscar_venda_compras_vazia():
-    #retorna duas listas de dicionario
-   acoes, opcoes = fn_buscar_todas()
+    # Retorna duas listas de dicionários
+    acoes, opcoes = fn_buscar_todas()
   
-   acoes_sem_venda = [acao for acao in acoes if acao.get("data_venda", "").strip() == ""]
-   opcoes_sem_compra = [opcao for opcao in opcoes if opcao.get("data_compra", "").strip() == ""]
-   return acoes_sem_venda,opcoes_sem_compra
+    id_ativos_abertos = set()
+
+    # 1. Identifica os id_ativos das ações sem venda
+    for acao in acoes:
+        if 'venda' not in acao or not acao['venda']:
+            id_ativos_abertos.add(acao['id_ativo'])
+
+    # 2. Filtra as ações com esses id_ativos
+    acoes_abertas = [acao for acao in acoes if acao['id_ativo'] in id_ativos_abertos]
+
+    # 3. Filtra opções sem data de compra
+    opcoes_sem_compra = [opcao for opcao in opcoes if not opcao.get("data_compra", "").strip()]
+
+    return acoes_abertas, opcoes_sem_compra
 
 
 def fn_buscar_venda_compras_vazia_tuplas():

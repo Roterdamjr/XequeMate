@@ -13,6 +13,8 @@ def fn_buscar_preco_atual(ticker):
         print(f"Erro ao buscar {ticker}: {e}")
         return None
 
+
+
 def fn_busca_mapa_precos_atuais():
     todas_acoes, _ = fn_buscar_todas()
     df = pd.DataFrame(todas_acoes)
