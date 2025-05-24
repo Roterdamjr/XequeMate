@@ -16,11 +16,25 @@ def exibir_desempenho():
 
     df_total = pd.concat([df_ativos, totalizadores], ignore_index=True)
 
-    df_total = df_total.sort_values(by=['id_ativo', 'tipo'], ascending=[True, True])
-    df_total = df_total.drop(columns=['tipo','id_ativo','data_compra','data_venda'])
+    # popula df_ativos_vendidas e df_ativos_nao_vendidos
+    acoes_vendidas = df_total[(df_total["tipo_ativo"] == "acao") & (df_total["venda"].notna())]
+    ids_ativos_vendidos = acoes_vendidas["id_ativo"].unique()
+    df_ativos_vendidos = df_total[df_total["id_ativo"].isin(ids_ativos_vendidos)]
+    df_ativos_nao_vendidos = df_total[~df_total["id_ativo"].isin(ids_ativos_vendidos)]
 
+    df_total = fn_ajusta_df(df_total)
+    df_ativos_vendidos = fn_ajusta_df(df_ativos_vendidos)
+    df_ativos_nao_vendidos = fn_ajusta_df(df_ativos_nao_vendidos)
+
+   # st.dataframe(df_total)
+    st.dataframe(df_ativos_vendidos)
+    st.dataframe(df_ativos_nao_vendidos)
+
+def fn_ajusta_df(df):
+    df = df.sort_values(by=['id_ativo', 'tipo'], ascending=[True, True])
+    df = df.drop(columns=['tipo','id_ativo','data_compra','data_venda'])
+
+    #substituir valores ausentes (NaN) por strings vazias ('')
     colunas = ['ativo','quantidade','compra','venda','strike','preco_atual']
-    df_total[colunas] = df_total[colunas].fillna('')
-
-    
-    st.dataframe(df_total)
+    df[colunas] = df[colunas].fillna('')
+    return df

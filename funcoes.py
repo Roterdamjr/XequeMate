@@ -14,7 +14,6 @@ def fn_buscar_preco_atual(ticker):
         return None
 
 
-
 def fn_busca_mapa_precos_atuais():
     todas_acoes, _ = fn_buscar_todas()
     df = pd.DataFrame(todas_acoes)
@@ -30,7 +29,6 @@ def fn_obter_strike(id_ativo):
     # traz a opcao mais recente
     opcoes.sort(key=lambda x: datetime.strptime(x['data_venda'], '%d/%m/%Y'), reverse=True)
     return opcoes[0]['strike']  
-
 
 
 def fn_busca_ativo_pai(ativo):
@@ -64,7 +62,7 @@ def fn_popula_dados(df_precos_atuais):
     if (not todas_acoes) or (not todas_opcoes):
         return False
     
-     ##############  opcoes ##############
+     ##############  acoes ##############
     df_acoes = pd.DataFrame(todas_acoes)
     df_acoes = df_acoes[['id_ativo','data_compra',  'data_venda',  'ativo','quantidade','compra','venda']]
     
@@ -84,7 +82,8 @@ def fn_popula_dados(df_precos_atuais):
         (df_acoes['venda'] - df_acoes['compra']) * df_acoes['quantidade'],
         (df_acoes[['preco_atual', 'strike']].min(axis=1) - df_acoes['compra']) * df_acoes['quantidade']
         )
-    
+    df_acoes['tipo_ativo'] = 'acao'
+
     ##############  opcoes ##############
     df_opcoes = pd.DataFrame(todas_opcoes)
     df_opcoes = df_opcoes.rename(columns={'id_acao': 'id_ativo'})
@@ -95,7 +94,8 @@ def fn_popula_dados(df_precos_atuais):
 
         # acrescenta coluna "reulstados"
     df_opcoes['resultado'] = (df_opcoes['venda'] - df_opcoes['compra']) * df_opcoes['quantidade']
-
+    df_opcoes['tipo_ativo'] = 'opcao'
+    
     ############### concatena acoes e opcoes ###############################
     df_ativos = pd.concat([df_acoes , df_opcoes], ignore_index=True)
 
