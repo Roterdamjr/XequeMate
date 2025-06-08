@@ -26,15 +26,21 @@ def exibir_desempenho():
     df_ativos_vendidos = fn_ajusta_df(df_ativos_vendidos)
     df_ativos_nao_vendidos = fn_ajusta_df(df_ativos_nao_vendidos)
 
-   # st.dataframe(df_total)
-    st.dataframe(df_ativos_vendidos)
-    st.dataframe(df_ativos_nao_vendidos)
+    mostrar_vendidos = st.checkbox("Exibir ativos vendidos", value=True)
+
+    if mostrar_vendidos:
+        st.subheader("Ativos Vendidos")
+        st.dataframe(df_ativos_vendidos)
+    else:
+        st.subheader("Ativos Não Vendidos")
+        st.dataframe(df_ativos_nao_vendidos)
 
 def fn_ajusta_df(df):
     df = df.sort_values(by=['id_ativo', 'tipo'], ascending=[True, True])
-    df = df.drop(columns=['tipo','id_ativo','data_compra','data_venda'])
+    df = df.drop(columns=['tipo','id_ativo','data_compra','data_venda','tipo_ativo'])
 
-    #substituir valores ausentes (NaN) por strings vazias ('')
-    colunas = ['ativo','quantidade','compra','venda','strike','preco_atual']
-    df[colunas] = df[colunas].fillna('')
+    # Preencher colunas numéricas com 0, e strings com ''
+    colunas_numericas = ['quantidade', 'compra', 'venda', 'strike', 'preco_atual']
+    colunas_string = ['ativo']
+
     return df

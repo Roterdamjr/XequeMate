@@ -132,7 +132,6 @@ def exibe_grade():
         total_resultado = df['resultado'].sum()
         total_investido = (df['quantidade'] * df['compra']).sum()
         result_perc_total = round(100 * total_resultado / total_investido , 2)
-        result_perc_total = f"{result_perc_total * 100:.1f}%"  
 
         total_row = pd.DataFrame([{
             'data_compra' : np.nan,
@@ -147,6 +146,7 @@ def exibe_grade():
         
         df_total = pd.concat([df, total_row], ignore_index=True)
         df_total = df_total.drop(columns=['data_venda', 'id_ativo'])
+        df['result_perc_str'] = df['result_perc'].astype(str) + '%'
 
         st.dataframe(df_total)
     else:

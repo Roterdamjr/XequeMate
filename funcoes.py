@@ -39,7 +39,8 @@ def fn_busca_ativo_pai(ativo):
 
     if len(ativo) == 5:
         df_acoes = pd.DataFrame(todas_acoes)
-        dt_compra = df_acoes.loc[df_acoes['ativo'] == ativo].iloc[0][0]
+        dt_compra = df_acoes.loc[df_acoes['ativo'] == ativo].iloc[0, 0]
+
         return {'ativo': ativo,  'data_compra': dt_compra} 
     else:
         lista = [acao for acao in todas_acoes if acao['ativo'][:4] == radical]
