@@ -22,17 +22,24 @@ def exibir_desempenho():
     df_ativos_vendidos = df_total[df_total["id_ativo"].isin(ids_ativos_vendidos)]
     df_ativos_nao_vendidos = df_total[~df_total["id_ativo"].isin(ids_ativos_vendidos)]
 
+    soma_ativos_vendidos= df_ativos_vendidos[df_ativos_vendidos['tipo'] == 'Detalhe']['resultado'].sum()
+    soma_ativos_nao_vendidos = df_ativos_nao_vendidos[df_ativos_nao_vendidos['tipo'] == 'Detalhe']['resultado'].sum()
+
+
     df_total = fn_ajusta_df(df_total)
     df_ativos_vendidos = fn_ajusta_df(df_ativos_vendidos)
     df_ativos_nao_vendidos = fn_ajusta_df(df_ativos_nao_vendidos)
 
     mostrar_vendidos = st.checkbox("Exibir ativos vendidos", value=False)
 
+    
     if mostrar_vendidos:
         st.subheader("Ativos Vendidos")
+        st.write(soma_ativos_vendidos)
         st.dataframe(df_ativos_vendidos)
     else:
         st.subheader("Ativos Não Vendidos")
+        st.write(soma_ativos_nao_vendidos)
         st.dataframe(df_ativos_nao_vendidos)
 
 def fn_ajusta_df(df):
