@@ -1,1 +1,140 @@
-{"_default": {"1": {"data_compra": "21/02/2025", "data_venda": "", "ativo": "BBDC4", "quantidade": 500, "compra": 11.78}, "2": {"data_compra": "21/02/2025", "data_venda": "17/04/2025", "ativo": "ABEV3", "quantidade": 500, "compra": 11.14, "venda": 11.87}, "3": {"data_compra": "21/02/2025", "data_venda": "", "ativo": "CSAN3", "quantidade": 600, "compra": 7.27}, "4": {"data_compra": "25/02/2025", "data_venda": "21/03/2025", "ativo": "CYRE3", "quantidade": 100, "compra": 21.79, "venda": 21.0}, "5": {"data_compra": "25/02/2025", "data_venda": "21/03/2025", "ativo": "EQTL3", "quantidade": 100, "compra": 30.95, "venda": 30.07}, "6": {"data_compra": "25/02/2025", "data_venda": "13/05/2025", "ativo": "HAPV3", "quantidade": 2000, "compra": 2.18, "venda": 2.61}, "7": {"data_compra": "25/02/2025", "data_venda": "", "ativo": "HYPE3", "quantidade": 200, "compra": 19.37}, "8": {"data_compra": "25/02/2025", "data_venda": "17/04/2025", "ativo": "SLCE3", "quantidade": 300, "compra": 18.19, "venda": 17.42}, "9": {"data_compra": "25/03/2025", "data_venda": "17/04/2025", "ativo": "EGIE3", "quantidade": 100, "compra": 38.8, "venda": 38.5}, "10": {"data_compra": "25/03/2025", "ativo": "SLCE3", "quantidade": 200, "compra": 18.51, "venda": 18.25, "data_venda": "19/05/2025"}, "11": {"data_compra": "25/03/2025", "data_venda": "17/4/205", "ativo": "YDUQ3", "quantidade": 200, "compra": 11.9, "venda": 10.96}, "12": {"data_compra": "15/04/2025", "data_venda": "13/05/2025", "ativo": "ALOS3", "quantidade": 200, "compra": 19.68, "venda": 21.76}, "13": {"data_compra": "15/04/2025", "data_venda": "13/05/2025", "ativo": "BRSR6", "quantidade": 300, "compra": 10.59, "venda": 12.24}, "14": {"data_compra": "15/04/2025", "data_venda": "", "ativo": "WEGE3", "quantidade": 100, "compra": 46.04}, "15": {"data_compra": "13/05/2025", "data_venda": "", "ativo": "CMIG4", "quantidade": 400, "compra": 10.21}, "16": {"data_compra": "13/05/2025", "data_venda": "", "ativo": "EGIE3", "quantidade": 100, "compra": 39.96}, "17": {"data_compra": "21/05/2025", "data_venda": "", "ativo": "IGTI11", "quantidade": 200, "compra": 21.75}, "18": {"data_compra": "21/05/2025", "data_venda": "", "ativo": "HAPV3", "quantidade": 2000, "compra": 2.82}}}
+{
+    "_default": {
+        "1": {
+            "data_compra": "21/02/2025",
+            "data_venda": "",
+            "ativo": "BBDC4",
+            "quantidade": 500,
+            "compra": 11.78
+        },
+        "2": {
+            "data_compra": "21/02/2025",
+            "data_venda": "17/04/2025",
+            "ativo": "ABEV3",
+            "quantidade": 500,
+            "compra": 11.14,
+            "venda": 11.87
+        },
+        "3": {
+            "data_compra": "21/02/2025",
+            "data_venda": "",
+            "ativo": "CSAN3",
+            "quantidade": 600,
+            "compra": 7.27
+        },
+        "4": {
+            "data_compra": "25/02/2025",
+            "data_venda": "21/03/2025",
+            "ativo": "CYRE3",
+            "quantidade": 100,
+            "compra": 21.79,
+            "venda": 21.0
+        },
+        "5": {
+            "data_compra": "25/02/2025",
+            "data_venda": "21/03/2025",
+            "ativo": "EQTL3",
+            "quantidade": 100,
+            "compra": 30.95,
+            "venda": 30.07
+        },
+        "6": {
+            "data_compra": "25/02/2025",
+            "data_venda": "13/05/2025",
+            "ativo": "HAPV3",
+            "quantidade": 2000,
+            "compra": 2.18,
+            "venda": 2.61
+        },
+        "7": {
+            "data_compra": "25/02/2025",
+            "data_venda": "",
+            "ativo": "HYPE3",
+            "quantidade": 200,
+            "compra": 19.37
+        },
+        "8": {
+            "data_compra": "25/02/2025",
+            "data_venda": "17/04/2025",
+            "ativo": "SLCE3",
+            "quantidade": 300,
+            "compra": 18.19,
+            "venda": 17.42
+        },
+        "9": {
+            "data_compra": "25/03/2025",
+            "data_venda": "17/04/2025",
+            "ativo": "EGIE3",
+            "quantidade": 100,
+            "compra": 38.8,
+            "venda": 38.5
+        },
+        "10": {
+            "data_compra": "25/03/2025",
+            "ativo": "SLCE3",
+            "quantidade": 200,
+            "compra": 18.51,
+            "venda": 18.25,
+            "data_venda": "19/05/2025"
+        },
+        "11": {
+            "data_compra": "25/03/2025",
+            "data_venda": "17/4/205",
+            "ativo": "YDUQ3",
+            "quantidade": 200,
+            "compra": 11.9,
+            "venda": 10.96
+        },
+        "12": {
+            "data_compra": "15/04/2025",
+            "data_venda": "13/05/2025",
+            "ativo": "ALOS3",
+            "quantidade": 200,
+            "compra": 19.68,
+            "venda": 21.76
+        },
+        "13": {
+            "data_compra": "15/04/2025",
+            "data_venda": "13/05/2025",
+            "ativo": "BRSR6",
+            "quantidade": 300,
+            "compra": 10.59,
+            "venda": 12.24
+        },
+        "14": {
+            "data_compra": "15/04/2025",
+            "data_venda": "",
+            "ativo": "WEGE3",
+            "quantidade": 100,
+            "compra": 46.04
+        },
+        "15": {
+            "data_compra": "13/05/2025",
+            "data_venda": "",
+            "ativo": "CMIG4",
+            "quantidade": 400,
+            "compra": 10.21
+        },
+        "16": {
+            "data_compra": "13/05/2025",
+            "data_venda": "",
+            "ativo": "EGIE3",
+            "quantidade": 100,
+            "compra": 39.96
+        },
+        "17": {
+            "data_compra": "21/05/2025",
+            "data_venda": "",
+            "ativo": "IGTI11",
+            "quantidade": 200,
+            "compra": 21.75
+        },
+        "18": {
+            "data_compra": "21/05/2025",
+            "data_venda": "",
+            "ativo": "HAPV3",
+            "quantidade": 133,
+            "compra": 42.30
+        }
+    }
+}

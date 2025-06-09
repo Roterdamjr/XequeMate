@@ -26,7 +26,7 @@ def exibir_desempenho():
     df_ativos_vendidos = fn_ajusta_df(df_ativos_vendidos)
     df_ativos_nao_vendidos = fn_ajusta_df(df_ativos_nao_vendidos)
 
-    mostrar_vendidos = st.checkbox("Exibir ativos vendidos", value=True)
+    mostrar_vendidos = st.checkbox("Exibir ativos vendidos", value=False)
 
     if mostrar_vendidos:
         st.subheader("Ativos Vendidos")
